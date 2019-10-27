@@ -1,0 +1,11 @@
+<script src="./dist/my-async-store.umd.js"></script>
+<script>
+
+const { add, wait } = MyAsyncStore
+
+wait('foo', 'bar').then(() => console.log('it works'))
+
+add('foo')
+add('bar')
+
+</script>

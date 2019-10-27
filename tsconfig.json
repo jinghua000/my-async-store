@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "outDir": "./lib",
     "lib": ["esnext", "dom"],
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "declaration": true,
+    "declarationDir": "./types",
   },
   "include": ["src/**/*"],
 }
