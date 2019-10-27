@@ -2,10 +2,9 @@
   "name": "my-async-store",
   "version": "0.0.1",
   "description": "my-async-store",
-  "main": "src/index.ts",
+  "main": "lib/index.js",
   "scripts": {
     "build": "tsc --declaration",
-    "lint": "",
     "test": "mocha --extension ts --require ts-node/register"
   },
   "author": "shadow",

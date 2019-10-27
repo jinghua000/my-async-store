@@ -1,31 +1,8 @@
-export function add (sign: any) {
+import { namespace } from './namespace'
 
-}
+const { add, del, has, wait, clear, size, store } = namespace(
+  Symbol('my-async-store')
+)
 
-export function wait (...signs: any) {
-
-}
-
-export function has (sign: any) {
-
-}
-
-export function del (sign: any) {
-
-}
-
-export function clear () {
-
-}
-
-export function list () {
-
-}
-
-export function size () {
-
-}
-
-export function namespace (namespace: string) {
-
-}
+export { add, del, has, wait, clear, size, store }
+export { namespace }

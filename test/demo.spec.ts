@@ -1,6 +1,9 @@
 import { eq, equals } from './shared'
+import { clear } from '../src'
 
 describe('demo', () => {
+
+  beforeEach(clear)
 
   it('demo', () => {
 

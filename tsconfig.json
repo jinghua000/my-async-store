@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "lib": ["esnext", "dom"],
+    "downlevelIteration": true
   },
   "include": ["src/**/*"],
 }
