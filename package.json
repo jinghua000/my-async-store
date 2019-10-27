@@ -2,10 +2,18 @@
   "name": "my-async-store",
   "version": "0.0.1",
   "description": "my-async-store",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc --declaration",
+    "test": "mocha --extension ts --require ts-node/register"
   },
   "author": "shadow",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mocha": "^5.2.7",
+    "assert": "^2.0.0",
+    "mocha": "^6.2.2",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  }
 }
