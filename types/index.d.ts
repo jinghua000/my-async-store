@@ -1,4 +1,9 @@
 import { namespace } from './namespace';
-declare const add: (sign: any) => void, del: (sign: any) => Boolean, has: (sign: any) => Boolean, wait: (...signs: any) => Promise<void>, clear: () => void, size: () => number, store: Set<any>;
-export { add, del, has, wait, clear, size, store };
+export declare const add: (sign: any) => void;
+export declare const del: (sign: any) => Boolean;
+export declare const has: (sign: any) => Boolean;
+export declare const wait: (...signs: any) => Promise<void>;
+export declare const clear: () => void;
+export declare const size: () => number;
+export declare const store: Set<any>;
 export { namespace };

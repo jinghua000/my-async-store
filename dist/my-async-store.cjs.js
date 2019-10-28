@@ -64,7 +64,14 @@ function namespace(namespace) {
     return store;
 }
 
-var _a = namespace(Symbol('my-async-store')), add = _a.add, del = _a.del, has = _a.has, wait = _a.wait, clear = _a.clear, size = _a.size, store = _a.store;
+var defaultStore = namespace(Symbol('my-async-store'));
+var add = defaultStore.add;
+var del = defaultStore.del;
+var has = defaultStore.has;
+var wait = defaultStore.wait;
+var clear = defaultStore.clear;
+var size = defaultStore.size;
+var store = defaultStore.store;
 
 exports.add = add;
 exports.clear = clear;
