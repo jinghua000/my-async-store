@@ -3,9 +3,16 @@
 
 const { add, wait } = MyAsyncStore
 
-wait('foo', 'bar').then(() => console.log('it works'))
+wait('foo', 'bar').then(() => console.log('everyone is ready!'))
 
-add('foo')
-add('bar')
+setTimeout(() => {
+  console.log('foo is ready')
+  add('foo')
+}, 10)
+
+setTimeout(() => {
+  console.log('bar is ready')
+  add('bar')
+}, 20)
 
 </script>
