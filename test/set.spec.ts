@@ -1,35 +1,33 @@
 import { eq } from './shared'
-import { add, wait, clear } from '../src'
-// TODO fix tests
+import { set, wait, clear } from '../src'
 
-describe('test add', () => {
+describe('test set', () => {
 
   beforeEach(clear)
 
-  it('wait promise should execute after all specified signs added', done => {
+  it('wait promise should execute after all specified signs been set', done => {
 
     let num = 0
 
     setTimeout(() => {
       num += 1
-      add('foo')
+      set('foo')
     }, 10)
 
     setTimeout(() => {
       num += 1
-      add('bar')
+      set('bar')
     }, 20)
-
-    wait('foo', 'bar').then(() => {
-      num += 1
-      eq(num, 3)
-    })
 
     setTimeout(() => {
       num += 1
-      eq(num, 4)
-      done()
+      set('baz')
     }, 30)
+
+    wait('foo', 'bar', 'baz').then(() => {
+      eq(num, 3)
+      done()
+    })
 
   })
 
@@ -39,12 +37,12 @@ describe('test add', () => {
 
     setTimeout(() => {
       num += 1
-      add('foo')
+      set('foo')
     }, 10)
 
     setTimeout(() => {
       num += 1
-      add('foo')
+      set('foo')
     }, 20)
 
     wait('foo').then(() => {
@@ -59,11 +57,11 @@ describe('test add', () => {
 
   })
 
-  it('first added completed, then declared wait should work', done => {
+  it('first set, then declared wait should work', done => {
 
     let num = 0
 
-    add('foo')
+    set('foo')
 
     setTimeout(() => {
       wait('foo').then(() => {
@@ -76,6 +74,23 @@ describe('test add', () => {
       eq(num, 1)
       done()
     }, 20)
+
+  })
+
+  it('set can pass the context to the wait', done => {
+
+    let obj = {}
+
+    wait('foo', 'bar').then(map => {
+      eq(map.get('foo'), obj)
+      eq(map.get('bar'), 123)
+      eq(map.size, 2)
+      
+      done()
+    })
+
+    set('foo', obj)
+    set('bar', 123)
 
   })
 

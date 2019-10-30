@@ -1,5 +1,5 @@
 import { eq } from './shared'
-import { clear, size, add } from '../src'
+import { clear, size, set } from '../src'
 
 describe('test size', () => {
 
@@ -7,9 +7,9 @@ describe('test size', () => {
 
   it('should return the async signs length', () => {
 
-    add('foo')  
-    add('bar')  
-    add('baz')  
+    set('foo')  
+    set('bar')  
+    set('baz')  
 
     eq(size(), 3)
 

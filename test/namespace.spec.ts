@@ -1,5 +1,5 @@
-import { eq } from './shared'
-import { add, wait, namespace, clear } from '../src'
+import { eq, equals } from './shared'
+import { set, wait, namespace, clear } from '../src'
 
 describe('test namespace', () => {
 
@@ -7,37 +7,36 @@ describe('test namespace', () => {
 
   it('different namespace will not influence each other', done => {
 
-    let num1 = 0
-    let num2 = 0
+    let arr = []
 
     namespace('foo').clear()
 
-    add('foo')
-    namespace('foo').add('bar')
+    wait('foo').then(() => arr.push('foo'))
+    namespace('foo').wait('foo').then(() => arr.push('bar'))
 
-    wait('foo', 'bar').then(() => num1 += 1)
-    namespace('foo').wait('bar').then(() => num2 += 1)
+    set('foo')
+    namespace('foo').set('foo')
 
     setTimeout(() => {
-      eq(num1, 0)
-      eq(num2, 1)
+      equals(arr, ['foo', 'bar'])
 
       done()
     }, 10)
 
   })
 
-  it('namespace has all methods such as add, del, has...', () => {
+  it('namespace has all methods such as set, del, has...', () => {
 
     let mySpace = namespace('foo')
     mySpace.clear()
 
-    eq('add' in mySpace, true)
+    eq('set' in mySpace, true)
+    eq('get' in mySpace, true)
     eq('clear' in mySpace, true)
     eq('del' in mySpace, true)
     eq('has' in mySpace, true)
     eq('size' in mySpace, true)
-    eq('store' in mySpace, true)
+    eq('storeMap' in mySpace, true)
     eq('wait' in mySpace, true)
 
   })

@@ -1,27 +1,27 @@
 import { eq, equals } from './shared'
-import { store, clear, add } from '../src'
+import { storeMap, clear, set } from '../src'
 
-describe('test store', () => {
+describe('test storeMap', () => {
 
   beforeEach(clear)
 
-  it('store is an instance of Set', () => {
+  it('storeMap is an instance of Map', () => {
 
-    eq(store instanceof Set, true)
+    eq(storeMap instanceof Map, true)
 
   })
 
-  it('store contains async signs', () => {
+  it('storeMap contains async signs', () => {
 
-    add('foo')
-    add('bar')
-    add('foo')
+    set('foo')
+    set('bar')
+    set('foo')
 
-    eq(store.has('foo'), true)
-    eq(store.has('bar'), true)
-    eq(store.has('baz'), false)
-    eq(store.size, 2)
-    equals([...store], ['foo', 'bar'])
+    eq(storeMap.has('foo'), true)
+    eq(storeMap.has('bar'), true)
+    eq(storeMap.has('baz'), false)
+    eq(storeMap.size, 2)
+    equals([...storeMap.keys()], ['foo', 'bar'])
 
   })
 
