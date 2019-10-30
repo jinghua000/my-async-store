@@ -1,5 +1,6 @@
 import { eq } from './shared'
 import { add, wait, clear } from '../src'
+// TODO fix tests
 
 describe('test add', () => {
 

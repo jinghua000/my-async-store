@@ -1,26 +1,28 @@
 import { AsyncStore, createAsyncStore } from './core'
 
-const storeMap: Map<any, AsyncStore> = new Map()
+const globalStoreMap: Map<any, AsyncStore> = new Map()
 
 /**
- * Return the store with the namespace of the supplied namespace's name.
+ * Return the async store with the supplied namespace.
  * 
  * The result object has all other exports methods,
- * and have the extra property `namespace`, means the supplied namespace's name.
+ * and have the extra property `namespace`, means the namespace's name.
  * 
  * Different namespace store will not make influence to each other.
+ * 
+ * API declare detail check [AsyncStore](../types/code.d.ts)
  * 
  * @param {any} namespace - namespace's name.
  * @return {object}
  */
 export function namespace (namespace: any): AsyncStore {
-  if (storeMap.has(namespace)) {
-    return storeMap.get(namespace)
+  if (globalStoreMap.has(namespace)) {
+    return globalStoreMap.get(namespace)
   } 
   
   const store = createAsyncStore()
   store.namespace = namespace
 
-  storeMap.set(namespace, store)
+  globalStoreMap.set(namespace, store)
   return store
 }
