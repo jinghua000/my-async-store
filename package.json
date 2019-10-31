@@ -1,16 +1,38 @@
 {
   "name": "my-async-store",
-  "version": "0.0.1",
-  "description": "my-async-store",
+  "version": "0.1.0",
+  "description": "Track asynchronous more simplify.",
   "main": "dist/my-async-store.cjs.js",
+  "module": "dist/my-async-store.esm.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist/ types/",
     "build": "yarn clean && rollup -c && yarn build:doc",
     "build:doc": "node scripts/build-doc.js",
     "test": "mocha --extension ts --require ts-node/register"
   },
-  "author": "shadow",
+  "keywords": [
+    "asynchronous",
+    "promise"
+  ],
+  "files": [
+    "dist",
+    "types"
+  ],
+  "author": {
+    "name": "shadow",
+    "url": "https://github.com/jinghua000"
+  },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jinghua000/my-async-store.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jinghua000/my-async-store/issues"
+  },
+  "homepage": "https://github.com/jinghua000/my-async-store",
+  "dependencies": {},
   "devDependencies": {
     "@types/mocha": "^5.2.7",
     "assert": "^2.0.0",
@@ -20,6 +42,7 @@
     "rollup": "^1.25.2",
     "rollup-plugin-terser": "^5.1.2",
     "rollup-plugin-typescript2": "^0.24.3",
+    "shadow-fns": "^0.1.4",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
   }

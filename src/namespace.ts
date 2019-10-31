@@ -12,8 +12,16 @@ const globalStoreMap: Map<any, AsyncStore> = new Map()
  * 
  * API declare detail check [AsyncStore](../types/core.d.ts)
  * 
- * @param {any} namespace - namespace's name.
+ * @param {any} namespace 
  * @return {AsyncStore}
+ * @example
+ * 
+ * const { set, get, wait } = namesapce('my-space')
+ * 
+ * set('foo', 'bar')
+ * get('foo') // => bar
+ * wait('foo').then(() => console.log('works')) // logs: works
+ * namespace('my-space').namespace // => my-space
  */
 export function namespace (namespace: any): AsyncStore {
   if (globalStoreMap.has(namespace)) {

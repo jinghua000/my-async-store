@@ -15,6 +15,15 @@ const defaultStore = namespace(
  * @param {*} sign 
  * @param {*} [payload] 
  * @returns {void}
+ * @example
+ * 
+ * wait('foo').then(
+ *   map => console.log(`${map.get('foo')} is ready`)
+ * )
+ * 
+ * setTimeout() => set('foo', 'bar'), 30)
+ * 
+ * // after 30 ms logs: bar is ready
  */
 export const set = defaultStore.set
 
@@ -24,6 +33,13 @@ export const set = defaultStore.set
  * 
  * @param {*} sign
  * @returns {*}
+ * @example
+ * 
+ * let obj = {}
+ * 
+ * set('foo', obj)
+ * get('foo') === obj // => true
+ * get('bar') // => undefined
  */
 export const get = defaultStore.get
 
@@ -37,6 +53,14 @@ export const get = defaultStore.get
  * 
  * @param {...*} signs
  * @returns {Promise<Map>}
+ * @example
+ * 
+ * set('foo')
+ * set('bar')
+ * 
+ * wait('foo', 'bar').then(
+ *   map => map === storeMap // => true
+ * )
  */
 export const wait = defaultStore.wait
 
@@ -46,6 +70,11 @@ export const wait = defaultStore.wait
  * 
  * @param {*} sign
  * @returns {boolean}
+ * @example
+ * 
+ * set('foo')
+ * del('foo') // => true
+ * del('foo') // => false
  */
 export const del = defaultStore.del
 
@@ -54,6 +83,12 @@ export const del = defaultStore.del
  * 
  * @param {*} sign
  * @returns {boolean}
+ * @example
+ * 
+ * set('foo')
+ * has('foo') // => true
+ * del('foo')
+ * has('foo') // => false
  */
 export const has = defaultStore.has
 
@@ -61,6 +96,13 @@ export const has = defaultStore.has
  * Clear all signs from store.
  * 
  * @returns {void}
+ * @example
+ * 
+ * set('foo')
+ * set('bar')
+ * clear()
+ * has('foo') // => false
+ * has('bar') // => false
  */
 export const clear = defaultStore.clear
 
@@ -68,6 +110,14 @@ export const clear = defaultStore.clear
  * Return the number of signs.
  * 
  * @returns {number}
+ * @example
+ * 
+ * set('foo')
+ * size() // => 1
+ * set('bar')
+ * size() // => 2
+ * clear()
+ * size() // => 0
  */
 export const size = defaultStore.size
 
@@ -81,6 +131,15 @@ export const size = defaultStore.size
  * **DO NOT** edit this object directly.
  * 
  * @type {Map}
+ * @example
+ * 
+ * set('foo', 123)
+ * set('bar', 234)
+ * 
+ * storeMap.get('foo') // => 123
+ * storeMap.get('bar') // => 123
+ * [...storeMap.keys()] // => ['foo', 'bar']
+ * [...storeMap.values()] // => [123, 234]
  */
 export const storeMap = defaultStore.storeMap
 

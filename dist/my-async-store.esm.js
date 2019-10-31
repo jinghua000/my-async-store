@@ -62,8 +62,16 @@ var globalStoreMap = new Map();
  *
  * API declare detail check [AsyncStore](../types/core.d.ts)
  *
- * @param {any} namespace - namespace's name.
+ * @param {any} namespace
  * @return {AsyncStore}
+ * @example
+ *
+ * const { set, get, wait } = namesapce('my-space')
+ *
+ * set('foo', 'bar')
+ * get('foo') // => bar
+ * wait('foo').then(() => console.log('works')) // logs: works
+ * namespace('my-space').namespace // => my-space
  */
 function namespace(namespace) {
     if (globalStoreMap.has(namespace)) {
@@ -87,6 +95,15 @@ var defaultStore = namespace(Symbol('my-async-store'));
  * @param {*} sign
  * @param {*} [payload]
  * @returns {void}
+ * @example
+ *
+ * wait('foo').then(
+ *   map => console.log(`${map.get('foo')} is ready`)
+ * )
+ *
+ * setTimeout() => set('foo', 'bar'), 30)
+ *
+ * // after 30 ms logs: bar is ready
  */
 var set = defaultStore.set;
 /**
@@ -95,6 +112,13 @@ var set = defaultStore.set;
  *
  * @param {*} sign
  * @returns {*}
+ * @example
+ *
+ * let obj = {}
+ *
+ * set('foo', obj)
+ * get('foo') === obj // => true
+ * get('bar') // => undefined
  */
 var get = defaultStore.get;
 /**
@@ -107,6 +131,14 @@ var get = defaultStore.get;
  *
  * @param {...*} signs
  * @returns {Promise<Map>}
+ * @example
+ *
+ * set('foo')
+ * set('bar')
+ *
+ * wait('foo', 'bar').then(
+ *   map => map === storeMap // => true
+ * )
  */
 var wait = defaultStore.wait;
 /**
@@ -115,6 +147,11 @@ var wait = defaultStore.wait;
  *
  * @param {*} sign
  * @returns {boolean}
+ * @example
+ *
+ * set('foo')
+ * del('foo') // => true
+ * del('foo') // => false
  */
 var del = defaultStore.del;
 /**
@@ -122,18 +159,39 @@ var del = defaultStore.del;
  *
  * @param {*} sign
  * @returns {boolean}
+ * @example
+ *
+ * set('foo')
+ * has('foo') // => true
+ * del('foo')
+ * has('foo') // => false
  */
 var has = defaultStore.has;
 /**
  * Clear all signs from store.
  *
  * @returns {void}
+ * @example
+ *
+ * set('foo')
+ * set('bar')
+ * clear()
+ * has('foo') // => false
+ * has('bar') // => false
  */
 var clear = defaultStore.clear;
 /**
  * Return the number of signs.
  *
  * @returns {number}
+ * @example
+ *
+ * set('foo')
+ * size() // => 1
+ * set('bar')
+ * size() // => 2
+ * clear()
+ * size() // => 0
  */
 var size = defaultStore.size;
 /**
@@ -146,6 +204,15 @@ var size = defaultStore.size;
  * **DO NOT** edit this object directly.
  *
  * @type {Map}
+ * @example
+ *
+ * set('foo', 123)
+ * set('bar', 234)
+ *
+ * storeMap.get('foo') // => 123
+ * storeMap.get('bar') // => 123
+ * [...storeMap.keys()] // => ['foo', 'bar']
+ * [...storeMap.values()] // => [123, 234]
  */
 var storeMap = defaultStore.storeMap;
 

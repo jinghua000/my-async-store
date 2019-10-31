@@ -10,6 +10,15 @@ import { namespace } from './namespace';
  * @param {*} sign
  * @param {*} [payload]
  * @returns {void}
+ * @example
+ *
+ * wait('foo').then(
+ *   map => console.log(`${map.get('foo')} is ready`)
+ * )
+ *
+ * setTimeout() => set('foo', 'bar'), 30)
+ *
+ * // after 30 ms logs: bar is ready
  */
 export declare const set: (sign: any, payload?: any) => void;
 /**
@@ -18,6 +27,13 @@ export declare const set: (sign: any, payload?: any) => void;
  *
  * @param {*} sign
  * @returns {*}
+ * @example
+ *
+ * let obj = {}
+ *
+ * set('foo', obj)
+ * get('foo') === obj // => true
+ * get('bar') // => undefined
  */
 export declare const get: (sign: any) => any;
 /**
@@ -30,6 +46,14 @@ export declare const get: (sign: any) => any;
  *
  * @param {...*} signs
  * @returns {Promise<Map>}
+ * @example
+ *
+ * set('foo')
+ * set('bar')
+ *
+ * wait('foo', 'bar').then(
+ *   map => map === storeMap // => true
+ * )
  */
 export declare const wait: (...signs: any) => Promise<Map<any, any>>;
 /**
@@ -38,6 +62,11 @@ export declare const wait: (...signs: any) => Promise<Map<any, any>>;
  *
  * @param {*} sign
  * @returns {boolean}
+ * @example
+ *
+ * set('foo')
+ * del('foo') // => true
+ * del('foo') // => false
  */
 export declare const del: (sign: any) => Boolean;
 /**
@@ -45,18 +74,39 @@ export declare const del: (sign: any) => Boolean;
  *
  * @param {*} sign
  * @returns {boolean}
+ * @example
+ *
+ * set('foo')
+ * has('foo') // => true
+ * del('foo')
+ * has('foo') // => false
  */
 export declare const has: (sign: any) => Boolean;
 /**
  * Clear all signs from store.
  *
  * @returns {void}
+ * @example
+ *
+ * set('foo')
+ * set('bar')
+ * clear()
+ * has('foo') // => false
+ * has('bar') // => false
  */
 export declare const clear: () => void;
 /**
  * Return the number of signs.
  *
  * @returns {number}
+ * @example
+ *
+ * set('foo')
+ * size() // => 1
+ * set('bar')
+ * size() // => 2
+ * clear()
+ * size() // => 0
  */
 export declare const size: () => number;
 /**
@@ -69,6 +119,15 @@ export declare const size: () => number;
  * **DO NOT** edit this object directly.
  *
  * @type {Map}
+ * @example
+ *
+ * set('foo', 123)
+ * set('bar', 234)
+ *
+ * storeMap.get('foo') // => 123
+ * storeMap.get('bar') // => 123
+ * [...storeMap.keys()] // => ['foo', 'bar']
+ * [...storeMap.values()] // => [123, 234]
  */
 export declare const storeMap: Map<any, any>;
 export { namespace };
