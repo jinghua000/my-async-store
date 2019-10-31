@@ -13,25 +13,32 @@ const plugins = [
 export default {
   input: 'src/index.ts',
   plugins,
-  output: [{
-    file: 'dist/my-async-store.esm.js',
-    format: 'esm'
-  }, {
-    file: 'dist/my-async-store.esm.min.js',
-    format: 'esm'
-  }, {
-    file: 'dist/my-async-store.cjs.js',
-    format: 'cjs'
-  }, {
-    file: 'dist/my-async-store.cjs.min.js',
-    format: 'cjs'
-  }, {
-    name: 'MyAsyncStore',
-    file: 'dist/my-async-store.umd.js',
-    format: 'umd'
-  }, {
-    name: 'MyAsyncStore',
-    file: 'dist/my-async-store.umd.min.js',
-    format: 'umd'
-  }]
+  output: [
+    {
+      file: 'dist/my-async-store.esm.js',
+      format: 'esm'
+    }, 
+    {
+      file: 'dist/my-async-store.esm.min.js',
+      format: 'esm'
+    }, 
+    {
+      file: 'dist/my-async-store.cjs.js',
+      format: 'cjs'
+    }, 
+    {
+      file: 'dist/my-async-store.cjs.min.js',
+      format: 'cjs'
+    }, 
+    {
+      name: 'MyAsyncStore',
+      file: 'dist/my-async-store.umd.js',
+      format: 'umd'
+    }, 
+    {
+      name: 'MyAsyncStore',
+      file: 'dist/my-async-store.umd.min.js',
+      format: 'umd'
+    }
+  ]
 }

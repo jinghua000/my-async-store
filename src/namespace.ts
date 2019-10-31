@@ -10,10 +10,10 @@ const globalStoreMap: Map<any, AsyncStore> = new Map()
  * 
  * Different namespace store will not make influence to each other.
  * 
- * API declare detail check [AsyncStore](../types/code.d.ts)
+ * API declare detail check [AsyncStore](../types/core.d.ts)
  * 
  * @param {any} namespace - namespace's name.
- * @return {object}
+ * @return {AsyncStore}
  */
 export function namespace (namespace: any): AsyncStore {
   if (globalStoreMap.has(namespace)) {

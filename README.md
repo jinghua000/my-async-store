@@ -33,18 +33,18 @@ or
 in node:
 
 ```js
-const { add, wait } = require('my-async-store')
+const { set, wait } = require('my-async-store')
 ```
 
 or
 
 ```js
-import { add, wait } from 'my-async-store'
+import { set, wait } from 'my-async-store'
 ```
 
 or in browser:
 ```js
-const { add, wait } = MyAsyncStore
+const { set, wait } = MyAsyncStore
 ```
 
 **Then**
@@ -53,7 +53,7 @@ const { add, wait } = MyAsyncStore
 // foo.js
 setTimeout(() => {
   console.log('foo is ready')
-  add('foo')
+  set('foo')
 }, 10)
 ```
 
@@ -61,7 +61,7 @@ setTimeout(() => {
 // bar.js
 setTimeout(() => {
   console.log('bar is ready')
-  add('bar')
+  set('bar')
 }, 20)
 ```
 
@@ -69,7 +69,6 @@ setTimeout(() => {
 // hello.js
 wait('foo', 'bar').then(() => console.log('everyone is ready!'))
 ```
-
 
 and console will logs
 
@@ -83,4 +82,4 @@ That's all!
 
 ## Documentation
 
-TODO 
+Further usage see [API documentation](./docs/API_DOCUMENTATION.md)

@@ -5,7 +5,8 @@
   "main": "dist/my-async-store.cjs.js",
   "scripts": {
     "clean": "rm -rf dist/ types/",
-    "build": "yarn clean && rollup -c",
+    "build": "yarn clean && rollup -c && yarn build:doc",
+    "build:doc": "node scripts/build-doc.js",
     "test": "mocha --extension ts --require ts-node/register"
   },
   "author": "shadow",
@@ -13,6 +14,8 @@
   "devDependencies": {
     "@types/mocha": "^5.2.7",
     "assert": "^2.0.0",
+    "dmd": "^4.0.4",
+    "jsdoc-to-markdown": "^5.0.2",
     "mocha": "^6.2.2",
     "rollup": "^1.25.2",
     "rollup-plugin-terser": "^5.1.2",

@@ -9,11 +9,11 @@ var removeFrom = function (deps) { return function (fn) {
 }; };
 
 function createAsyncStore() {
-    var store = new Set();
+    var storeMap = new Map();
     var deps = [];
     var remove = removeFrom(deps);
     var isCompleted = function (signs) {
-        return signs.map(store.has.bind(store)).every(Boolean);
+        return signs.map(storeMap.has.bind(storeMap)).every(Boolean);
     };
     function wait() {
         var signs = [];
@@ -31,7 +31,7 @@ function createAsyncStore() {
                 }
                 isCalled = true;
                 remove(run);
-                resolve();
+                resolve(storeMap);
             };
             run();
             // if `run` not completely called, push to the `deps`
@@ -40,58 +40,78 @@ function createAsyncStore() {
     }
     return {
         wait: wait,
-        store: store,
-        add: function (sign) { return store.add(sign) && deps.forEach(call); },
-        del: function (sign) { return store["delete"](sign); },
-        has: function (sign) { return store.has(sign); },
-        clear: function () { return store.clear(); },
-        size: function () { return store.size; },
+        storeMap: storeMap,
+        // here needs shallow copy since that function in deps are using splice.
+        set: function (sign, payload) { return storeMap.set(sign, payload) && [].concat(deps).forEach(call); },
+        get: function (sign) { return storeMap.get(sign); },
+        del: function (sign) { return storeMap["delete"](sign); },
+        has: function (sign) { return storeMap.has(sign); },
+        clear: function () { return storeMap.clear(); },
+        size: function () { return storeMap.size; },
     };
 }
 
-var storeMap = new Map();
+var globalStoreMap = new Map();
 /**
- * Return the store with the namespace of the supplied namespace's name.
+ * Return the async store with the supplied namespace.
  *
  * The result object has all other exports methods,
- * and have the extra property `namespace`, means the supplied namespace's name.
+ * and have the extra property `namespace`, means the namespace's name.
  *
  * Different namespace store will not make influence to each other.
  *
+ * API declare detail check [AsyncStore](../types/core.d.ts)
+ *
  * @param {any} namespace - namespace's name.
- * @return {object}
+ * @return {AsyncStore}
  */
 function namespace(namespace) {
-    if (storeMap.has(namespace)) {
-        return storeMap.get(namespace);
+    if (globalStoreMap.has(namespace)) {
+        return globalStoreMap.get(namespace);
     }
     var store = createAsyncStore();
     store.namespace = namespace;
-    storeMap.set(namespace, store);
+    globalStoreMap.set(namespace, store);
     return store;
 }
 
 var defaultStore = namespace(Symbol('my-async-store'));
 /**
- * Add an sign to the default store,
+ * Set an sign to the default async store,
  * and only this method can trigger `wait`.
  *
+ * And second parameter payload used to carry some extra message.
+ *
+ * The same sign will replace the old one.
+ *
  * @param {*} sign
+ * @param {*} [payload]
  * @returns {void}
  */
-var add = defaultStore.add;
+var set = defaultStore.set;
 /**
- * Check the supplied signs are all added,
- * when succeed, resolve a `Promise`.
+ * Read the supplied sign corresponding payload,
+ * if not exist or not been set return `undefined`.
  *
- * And first add signs, then call this method will also be work.
+ * @param {*} sign
+ * @returns {*}
+ */
+var get = defaultStore.get;
+/**
+ * Check the supplied signs are all been set,
+ * when succeed, return a `Promise`,
+ * it will resolve the [storeMap](#storeMap)
+ * where can get the message you have ever set.
+ *
+ * And first set signs, then call this method will also work.
  *
  * @param {...*} signs
- * @returns {Promise<void>}
+ * @returns {Promise<Map>}
  */
 var wait = defaultStore.wait;
 /**
- * Delete a sign from the store.
+ * Delete a sign from the store,
+ * if not exist will return false, else true.
  *
  * @param {*} sign
  * @returns {boolean}
@@ -105,23 +125,28 @@ var del = defaultStore.del;
  */
 var has = defaultStore.has;
 /**
- * Clear all signs.
+ * Clear all signs from store.
  *
- * @return {void}
+ * @returns {void}
  */
 var clear = defaultStore.clear;
 /**
  * Return the number of signs.
  *
- * @return {number}
+ * @returns {number}
  */
 var size = defaultStore.size;
 /**
- * Is the property point to the raw `Set` of the store,
- * and **DO NOT** edit this object directly.
+ * The property point to the raw `Map` of the store.
  *
- * @type {Set<any>}
+ * When set signs to the store, first parameter as the Map key,
+ * second parameter as the Map value.
+ *
+ * And it's only used to read,
+ * **DO NOT** edit this object directly.
+ *
+ * @type {Map}
  */
-var store = defaultStore.store;
+var storeMap = defaultStore.storeMap;
 
-export { add, clear, del, has, namespace, size, store, wait };
+export { clear, del, get, has, namespace, set, size, storeMap, wait };

@@ -47,7 +47,7 @@ export function createAsyncStore (): AsyncStore {
     wait,
     storeMap,
     // here needs shallow copy since that function in deps are using splice.
-    set: (sign, payload) => storeMap.set(sign, payload) && [...deps].forEach(call),
+    set: (sign, payload) => storeMap.set(sign, payload) && [].concat(deps).forEach(call),
     get: sign => storeMap.get(sign),
     del: sign => storeMap.delete(sign),
     has: sign => storeMap.has(sign),

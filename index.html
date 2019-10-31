@@ -1,18 +1,18 @@
 <script src="./dist/my-async-store.umd.js"></script>
 <script>
 
-const { add, wait } = MyAsyncStore
+const { set, wait } = MyAsyncStore
 
 wait('foo', 'bar').then(() => console.log('everyone is ready!'))
 
 setTimeout(() => {
   console.log('foo is ready')
-  add('foo')
+  set('foo')
 }, 10)
 
 setTimeout(() => {
   console.log('bar is ready')
-  add('bar')
+  set('bar')
 }, 20)
 
 </script>

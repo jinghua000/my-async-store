@@ -1,24 +1,40 @@
 import { namespace } from './namespace';
 /**
- * Add an sign to the default store,
+ * Set an sign to the default async store,
  * and only this method can trigger `wait`.
  *
+ * And second parameter payload used to carry some extra message.
+ *
+ * The same sign will replace the old one.
+ *
  * @param {*} sign
+ * @param {*} [payload]
  * @returns {void}
  */
-export declare const add: (sign: any) => void;
+export declare const set: (sign: any, payload?: any) => void;
 /**
- * Check the supplied signs are all added,
- * when succeed, resolve a `Promise`.
+ * Read the supplied sign corresponding payload,
+ * if not exist or not been set return `undefined`.
  *
- * And first add signs, then call this method will also be work.
+ * @param {*} sign
+ * @returns {*}
+ */
+export declare const get: (sign: any) => any;
+/**
+ * Check the supplied signs are all been set,
+ * when succeed, return a `Promise`,
+ * it will resolve the [storeMap](#storeMap)
+ * where can get the message you have ever set.
+ *
+ * And first set signs, then call this method will also work.
  *
  * @param {...*} signs
- * @returns {Promise<void>}
+ * @returns {Promise<Map>}
  */
-export declare const wait: (...signs: any) => Promise<void>;
+export declare const wait: (...signs: any) => Promise<Map<any, any>>;
 /**
- * Delete a sign from the store.
+ * Delete a sign from the store,
+ * if not exist will return false, else true.
  *
  * @param {*} sign
  * @returns {boolean}
@@ -32,22 +48,27 @@ export declare const del: (sign: any) => Boolean;
  */
 export declare const has: (sign: any) => Boolean;
 /**
- * Clear all signs.
+ * Clear all signs from store.
  *
- * @return {void}
+ * @returns {void}
  */
 export declare const clear: () => void;
 /**
  * Return the number of signs.
  *
- * @return {number}
+ * @returns {number}
  */
 export declare const size: () => number;
 /**
- * Is the property point to the raw `Set` of the store,
- * and **DO NOT** edit this object directly.
+ * The property point to the raw `Map` of the store.
  *
- * @type {Set<any>}
+ * When set signs to the store, first parameter as the Map key,
+ * second parameter as the Map value.
+ *
+ * And it's only used to read,
+ * **DO NOT** edit this object directly.
+ *
+ * @type {Map}
  */
-export declare const store: Set<any>;
+export declare const storeMap: Map<any, any>;
 export { namespace };
