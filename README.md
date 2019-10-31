@@ -1,5 +1,9 @@
 # my-async-store
 
+[![Build Status](https://travis-ci.org/jinghua000/my-async-store.svg?branch=master)](https://travis-ci.org/jinghua000/my-async-store)
+[![npm module](https://badge.fury.io/js/my-async-store.svg)](https://www.npmjs.com/package/my-async-store)
+[![Dependency Status](https://david-dm.org/jinghua000/my-async-store.svg)](https://david-dm.org/jinghua000/my-async-store)
+
 ## Introduction
 
 There is a case that we have many asynchronous functions need to call, and they are probably in different files.
