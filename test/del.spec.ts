@@ -1,32 +1,26 @@
 import { eq } from './shared'
-import { add, del, wait, clear } from '../src'
+import { set, del, has, clear } from '../src'
 
 describe('test del', () => {
 
   beforeEach(clear)
 
-  it('deleted async sign will not trigger wait.', done => {
+  it('deleted async sign will not exist.', () => {
 
-    let num = 0
-
-    add('foo')
+    set('foo')
     del('foo')
-    wait('foo', () => {
-      num += 1
-    })
 
-    setTimeout(() => {
-      eq(num, 0)
-      done()
-    }, 10)
+    eq(has('foo'), false)
 
   })
 
   it('if sign is exist, del method will return true, else false.', () => {
-    add('foo')
+
+    set('foo')
 
     eq(del('foo'), true)
     eq(del('bar'), false)
+    
   })
 
 })

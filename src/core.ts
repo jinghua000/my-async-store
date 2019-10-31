@@ -1,28 +1,28 @@
 import { removeFrom, call } from './shared'
 
-type StoreSet = Set<any> 
-type Sign = any
+type StoreMap = Map<any, any>
 
 export interface AsyncStore {
-  add: (sign: Sign) => void
-  wait: (...signs: Sign) => Promise<void>
-  has: (sign: Sign) => Boolean
-  del: (sign: Sign) => Boolean
+  set: (sign: any, payload?: any) => void
+  wait: (...signs: any) => Promise<StoreMap>
+  get: (sign: any) => any
+  has: (sign: any) => Boolean
+  del: (sign: any) => Boolean
   clear: () => void
   size: () => number
-  readonly store: StoreSet
+  readonly storeMap: StoreMap
   namespace?: any
 }
 
 export function createAsyncStore (): AsyncStore {
 
-  const store: StoreSet = new Set()
+  const storeMap: StoreMap = new Map()
   const deps: Function[] = []
   const remove = removeFrom(deps)
-  const isCompleted = (signs: Sign[]): Boolean => 
-    signs.map(store.has.bind(store)).every(Boolean)
+  const isCompleted = (signs: any[]): Boolean => 
+    signs.map(storeMap.has.bind(storeMap)).every(Boolean)
 
-  function wait (...signs: Sign): Promise<void> {
+  function wait (...signs: any): Promise<StoreMap> {
     return new Promise(resolve => {
 
       let isCalled = false
@@ -33,7 +33,7 @@ export function createAsyncStore (): AsyncStore {
         
         isCalled = true
         remove(run)
-        resolve()
+        resolve(storeMap)
       }
 
       run()
@@ -45,11 +45,13 @@ export function createAsyncStore (): AsyncStore {
 
   return {
     wait,
-    store,
-    add: sign => store.add(sign) && deps.forEach(call),
-    del: sign => store.delete(sign),
-    has: sign => store.has(sign),
-    clear: () => store.clear(),
-    size: () => store.size,
+    storeMap,
+    // here needs shallow copy since that function in deps are using splice.
+    set: (sign, payload) => storeMap.set(sign, payload) && [].concat(deps).forEach(call),
+    get: sign => storeMap.get(sign),
+    del: sign => storeMap.delete(sign),
+    has: sign => storeMap.has(sign),
+    clear: () => storeMap.clear(),
+    size: () => storeMap.size,
   }
 }

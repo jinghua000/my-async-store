@@ -1,13 +1,13 @@
-declare type StoreSet = Set<any>;
-declare type Sign = any;
+declare type StoreMap = Map<any, any>;
 export interface AsyncStore {
-    add: (sign: Sign) => void;
-    wait: (...signs: Sign) => Promise<void>;
-    has: (sign: Sign) => Boolean;
-    del: (sign: Sign) => Boolean;
+    set: (sign: any, payload?: any) => void;
+    wait: (...signs: any) => Promise<StoreMap>;
+    get: (sign: any) => any;
+    has: (sign: any) => Boolean;
+    del: (sign: any) => Boolean;
     clear: () => void;
     size: () => number;
-    readonly store: StoreSet;
+    readonly storeMap: StoreMap;
     namespace?: any;
 }
 export declare function createAsyncStore(): AsyncStore;
