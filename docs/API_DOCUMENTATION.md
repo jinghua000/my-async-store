@@ -3,22 +3,15 @@
 All methods bellow export from the package.  
 
 - [set](#set)  
-
 - [get](#get)  
-
 - [wait](#wait)  
-
 - [del](#del)  
-
 - [has](#has)  
-
 - [clear](#clear)  
-
 - [size](#size)  
-
 - [storeMap](#storeMap)  
-
 - [namespace](#namespace)  
+  
 
 <a name="set"></a>
 

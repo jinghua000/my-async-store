@@ -19,8 +19,10 @@ function makeNav () {
 
   __docs__.forEach(elem => {
     str += `- [${elem.id}](#${elem.id})`
-    str += '  \n\n'
+    str += `  \n`
   })
+
+  str += '  \n\n'
 
   return str
 }
