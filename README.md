@@ -84,4 +84,3 @@ That's all!
 ## Documentation
 
 TODO 
-TODO improve tests

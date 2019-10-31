@@ -11,8 +11,8 @@ describe('test namespace', () => {
 
     namespace('foo').clear()
 
-    wait('foo').then(() => arr.push('foo'))
     namespace('foo').wait('foo').then(() => arr.push('bar'))
+    wait('foo').then(() => arr.push('foo'))
 
     set('foo')
     namespace('foo').set('foo')
@@ -47,6 +47,16 @@ describe('test namespace', () => {
     mySpace.clear()
 
     eq(mySpace.namespace, 'foo')
+
+  })
+
+  it('namespace methods not depend on context', () => {
+
+    const { set, get, clear } = namespace('foo')
+    clear()
+
+    set('foo', 'foo')
+    eq(get('foo'), 'foo')
 
   })
 

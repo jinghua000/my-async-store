@@ -5,7 +5,7 @@ describe('test size', () => {
 
   beforeEach(clear)
 
-  it('should return the async signs length', () => {
+  it('should return the number of async signs', () => {
 
     set('foo')  
     set('bar')  

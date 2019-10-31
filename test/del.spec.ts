@@ -15,10 +15,12 @@ describe('test del', () => {
   })
 
   it('if sign is exist, del method will return true, else false.', () => {
+
     set('foo')
 
     eq(del('foo'), true)
     eq(del('bar'), false)
+    
   })
 
 })
