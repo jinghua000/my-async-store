@@ -1,27 +1,19 @@
-import { eq, equals } from './shared'
-import { set, wait, namespace, clear } from '../src'
+import { eq } from './shared'
+import { set, get, namespace, clear } from '../src'
 
 describe('test namespace', () => {
 
   beforeEach(clear)
 
-  it('different namespace will not influence each other', done => {
-
-    let arr = []
+  it('different namespace will not influence each other', () => {
 
     namespace('foo').clear()
 
-    namespace('foo').wait('foo').then(() => arr.push('bar'))
-    wait('foo').then(() => arr.push('foo'))
+    set('foo', 123)
+    namespace('foo').set('foo', 234)
 
-    set('foo')
-    namespace('foo').set('foo')
-
-    setTimeout(() => {
-      equals(arr, ['foo', 'bar'])
-
-      done()
-    }, 10)
+    eq(get('foo'), 123)
+    eq(namespace('foo').get('foo'), 234)
 
   })
 

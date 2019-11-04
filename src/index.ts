@@ -45,21 +45,19 @@ export const get = defaultStore.get
 
 /**
  * Check the supplied signs are all been set,
- * when succeed, return a `Promise`,
- * it will resolve the [storeMap](#storeMap)
- * where can get the message you have ever set.
+ * when succeed, return a `Promise`, resolve `undefined`.
  * 
  * And first set signs, then call this method will also work. 
  * 
  * @param {...*} signs
- * @returns {Promise<Map>}
+ * @returns {Promise<void>}
  * @example
  * 
  * set('foo')
  * set('bar')
  * 
  * wait('foo', 'bar').then(
- *   map => map === storeMap // => true
+ *   () => console.log('foo, bar is ready') // => logs succeed.
  * )
  */
 export const wait = defaultStore.wait
@@ -92,8 +90,40 @@ export const del = defaultStore.del
  */
 export const has = defaultStore.has
 
+/**
+ * Return all keys of the store.
+ * 
+ * @returns {array}
+ * @example 
+ * 
+ * set('foo')
+ * set('bar')
+ * keys() // => ['foo', 'bar']
+ */
 export const keys = defaultStore.keys
+
+/**
+ * Return all values of the store. 
+ * 
+ * @returns {array}
+ * @example
+ * 
+ * set('foo')
+ * set('bar', 123)
+ * values() // => [undefined, 'foo']
+ */
 export const values = defaultStore.values
+
+/**
+ * Return all keys and values of the store.
+ * 
+ * @returns {array}
+ * @example
+ * 
+ * set('foo')
+ * set('bar', 123)
+ * all() // => [['foo', undefined], ['bar', 123]]
+ */
 export const all = defaultStore.all
 
 /**

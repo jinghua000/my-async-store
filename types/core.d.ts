@@ -1,14 +1,14 @@
-declare type StoreMap = Map<any, any>;
-export interface AsyncStore {
-    set: (sign: any, payload?: any) => void;
-    wait: (...signs: any) => Promise<StoreMap>;
-    get: (sign: any) => any;
-    has: (sign: any) => Boolean;
-    del: (sign: any) => Boolean;
+export interface AsyncStore<K, V> {
+    set: (sign: K, payload?: V) => void;
+    wait: (...signs: K[]) => Promise<void>;
+    get: (sign: K) => V;
+    has: (sign: K) => Boolean;
+    del: (sign: K) => Boolean;
+    keys: () => K[];
+    values: () => V[];
+    all: () => Array<Array<K | V>>;
     clear: () => void;
     size: () => number;
-    readonly storeMap: StoreMap;
     namespace?: any;
 }
-export declare function createAsyncStore(): AsyncStore;
-export {};
+export declare function createAsyncStore(): AsyncStore<any, any>;

@@ -24,4 +24,12 @@ describe('test values', () => {
 
   })
 
+  it('set keys without payload will be undefined', () => {
+
+    set('a')
+    set('b')
+    equals(values(), [undefined, undefined])
+
+  })
+
 })

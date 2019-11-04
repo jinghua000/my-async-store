@@ -3,19 +3,10 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var call = function (fn) { return fn(); };
-var removeFrom = function (deps) { return function (fn) {
-    for (var i = 0; i < deps.length; i++) {
-        if (deps[i] === fn) {
-            deps.splice(i, 1);
-            return;
-        }
-    }
-}; };
 
 function createAsyncStore() {
     var storeMap = new Map();
-    var deps = [];
-    var remove = removeFrom(deps);
+    var deps = new Set();
     var isCompleted = function (signs) {
         return signs.map(storeMap.has.bind(storeMap)).every(Boolean);
     };
@@ -34,22 +25,23 @@ function createAsyncStore() {
                     throw new Error('Called More Than One Times!');
                 }
                 isCalled = true;
-                remove(run);
-                resolve(storeMap);
+                deps["delete"](run);
+                resolve();
             };
             run();
-            // if `run` not completely called, push to the `deps`
-            isCalled || deps.push(run);
+            // if `run` not completely called, add to the `deps`
+            isCalled || deps.add(run);
         });
     }
     return {
         wait: wait,
-        storeMap: storeMap,
-        // here needs shallow copy since that function in deps are using splice.
-        set: function (sign, payload) { return storeMap.set(sign, payload) && [].concat(deps).forEach(call); },
+        set: function (sign, payload) { return storeMap.set(sign, payload) && deps.forEach(call); },
         get: function (sign) { return storeMap.get(sign); },
         del: function (sign) { return storeMap["delete"](sign); },
         has: function (sign) { return storeMap.has(sign); },
+        keys: function () { return Array.from(storeMap.keys()); },
+        values: function () { return Array.from(storeMap.values()); },
+        all: function () { return Array.from(storeMap); },
         clear: function () { return storeMap.clear(); },
         size: function () { return storeMap.size; },
     };
@@ -62,11 +54,11 @@ var globalStoreMap = new Map();
  * The result object has all other exports methods,
  * and have the extra property `namespace`, means the namespace's name.
  *
- * Different namespace store will not make influence to each other.
+ * Store with Different namespace will not make influence to each other.
  *
  * API declare detail check [AsyncStore](../types/core.d.ts)
  *
- * @param {any} namespace
+ * @param {*} namespace
  * @return {AsyncStore}
  * @example
  *
@@ -102,7 +94,7 @@ var defaultStore = namespace(Symbol('my-async-store'));
  * @example
  *
  * wait('foo').then(
- *   map => console.log(`${map.get('foo')} is ready`)
+ *   () => console.log(`${get('foo')} is ready`)
  * )
  *
  * setTimeout() => set('foo', 'bar'), 30)
@@ -127,21 +119,19 @@ var set = defaultStore.set;
 var get = defaultStore.get;
 /**
  * Check the supplied signs are all been set,
- * when succeed, return a `Promise`,
- * it will resolve the [storeMap](#storeMap)
- * where can get the message you have ever set.
+ * when succeed, return a `Promise`, resolve `undefined`.
  *
  * And first set signs, then call this method will also work.
  *
  * @param {...*} signs
- * @returns {Promise<Map>}
+ * @returns {Promise<void>}
  * @example
  *
  * set('foo')
  * set('bar')
  *
  * wait('foo', 'bar').then(
- *   map => map === storeMap // => true
+ *   () => console.log('foo, bar is ready') // => logs succeed.
  * )
  */
 var wait = defaultStore.wait;
@@ -172,6 +162,39 @@ var del = defaultStore.del;
  */
 var has = defaultStore.has;
 /**
+ * Return all keys of the store.
+ *
+ * @returns {array}
+ * @example
+ *
+ * set('foo')
+ * set('bar')
+ * keys() // => ['foo', 'bar']
+ */
+var keys = defaultStore.keys;
+/**
+ * Return all values of the store.
+ *
+ * @returns {array}
+ * @example
+ *
+ * set('foo')
+ * set('bar', 123)
+ * values() // => [undefined, 'foo']
+ */
+var values = defaultStore.values;
+/**
+ * Return all keys and values of the store.
+ *
+ * @returns {array}
+ * @example
+ *
+ * set('foo')
+ * set('bar', 123)
+ * all() // => [['foo', undefined], ['bar', 123]]
+ */
+var all = defaultStore.all;
+/**
  * Clear all signs from store.
  *
  * @returns {void}
@@ -198,34 +221,15 @@ var clear = defaultStore.clear;
  * size() // => 0
  */
 var size = defaultStore.size;
-/**
- * The property point to the raw `Map` of the store.
- *
- * When set signs to the store, first parameter as the Map key,
- * second parameter as the Map value.
- *
- * And it's only used to read,
- * **DO NOT** edit this object directly.
- *
- * @type {Map}
- * @example
- *
- * set('foo', 123)
- * set('bar', 234)
- *
- * storeMap.get('foo') // => 123
- * storeMap.get('bar') // => 123
- * [...storeMap.keys()] // => ['foo', 'bar']
- * [...storeMap.values()] // => [123, 234]
- */
-var storeMap = defaultStore.storeMap;
 
+exports.all = all;
 exports.clear = clear;
 exports.del = del;
 exports.get = get;
 exports.has = has;
+exports.keys = keys;
 exports.namespace = namespace;
 exports.set = set;
 exports.size = size;
-exports.storeMap = storeMap;
+exports.values = values;
 exports.wait = wait;

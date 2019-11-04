@@ -2,14 +2,18 @@
 
 All methods bellow export from the package.  
 
+And internal implementation based on [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), so they are similar to the API of `Map.prototype` 
+
 - [set](#set)  
 - [get](#get)  
 - [wait](#wait)  
 - [del](#del)  
 - [has](#has)  
+- [keys](#keys)  
+- [values](#values)  
+- [all](#all)  
 - [clear](#clear)  
 - [size](#size)  
-- [storeMap](#storeMap)  
 - [namespace](#namespace)  
   
 
@@ -26,7 +30,7 @@ Set an sign to the default async store,and only this method can trigger `wait`.
 
 **Example**  
 ```js
-wait('foo').then(  map => console.log(`${map.get('foo')} is ready`))setTimeout() => set('foo', 'bar'), 30)// after 30 ms logs: bar is ready
+wait('foo').then(  () => console.log(`${get('foo')} is ready`))setTimeout() => set('foo', 'bar'), 30)// after 30 ms logs: bar is ready
 ```
 <a name="get"></a>
 
@@ -44,8 +48,8 @@ let obj = {}set('foo', obj)get('foo') === obj // => trueget('bar') // => und
 ```
 <a name="wait"></a>
 
-## wait ⇒ <code>Promise.&lt;Map&gt;</code>
-Check the supplied signs are all been set,when succeed, return a `Promise`,it will resolve the [storeMap](#storeMap)where can get the message you have ever set.And first set signs, then call this method will also work.
+## wait ⇒ <code>Promise.&lt;void&gt;</code>
+Check the supplied signs are all been set,when succeed, return a `Promise`, resolve `undefined`.And first set signs, then call this method will also work.
 
 
 | Param | Type |
@@ -54,7 +58,7 @@ Check the supplied signs are all been set,when succeed, return a `Promise`,it 
 
 **Example**  
 ```js
-set('foo')set('bar')wait('foo', 'bar').then(  map => map === storeMap // => true)
+set('foo')set('bar')wait('foo', 'bar').then(  () => console.log('foo, bar is ready') // => logs succeed.)
 ```
 <a name="del"></a>
 
@@ -84,6 +88,33 @@ Check the sign whether exist in the store.
 ```js
 set('foo')has('foo') // => truedel('foo')has('foo') // => false
 ```
+<a name="keys"></a>
+
+## keys ⇒ <code>array</code>
+Return all keys of the store.
+
+**Example**  
+```js
+set('foo')set('bar')keys() // => ['foo', 'bar']
+```
+<a name="values"></a>
+
+## values ⇒ <code>array</code>
+Return all values of the store.
+
+**Example**  
+```js
+set('foo')set('bar', 123)values() // => [undefined, 'foo']
+```
+<a name="all"></a>
+
+## all ⇒ <code>array</code>
+Return all keys and values of the store.
+
+**Example**  
+```js
+set('foo')set('bar', 123)all() // => [['foo', undefined], ['bar', 123]]
+```
 <a name="clear"></a>
 
 ## clear ⇒ <code>void</code>
@@ -102,24 +133,15 @@ Return the number of signs.
 ```js
 set('foo')size() // => 1set('bar')size() // => 2clear()size() // => 0
 ```
-<a name="storeMap"></a>
-
-## storeMap : <code>Map</code>
-The property point to the raw `Map` of the store.When set signs to the store, first parameter as the Map key,second parameter as the Map value.And it's only used to read,**DO NOT** edit this object directly.
-
-**Example**  
-```js
-set('foo', 123)set('bar', 234)storeMap.get('foo') // => 123storeMap.get('bar') // => 123[...storeMap.keys()] // => ['foo', 'bar'][...storeMap.values()] // => [123, 234]
-```
 <a name="namespace"></a>
 
 ## namespace ⇒ <code>AsyncStore</code>
-Return the async store with the supplied namespace.The result object has all other exports methods,and have the extra property `namespace`, means the namespace's name.Different namespace store will not make influence to each other.API declare detail check [AsyncStore](../types/core.d.ts)
+Return the async store with the supplied namespace.The result object has all other exports methods,and have the extra property `namespace`, means the namespace's name.Store with Different namespace will not make influence to each other.API declare detail check [AsyncStore](../types/core.d.ts)
 
 
 | Param | Type |
 | --- | --- |
-| namespace | <code>any</code> | 
+| namespace | <code>\*</code> | 
 
 **Example**  
 ```js

@@ -10,7 +10,7 @@ export interface AsyncStore<K, V>{
   del: (sign: K) => Boolean
   keys: () => K[]
   values: () => V[]
-  all: () => Array<Array<K|V>>
+  all: () => Array<Array<K | V>>
   clear: () => void
   size: () => number
   namespace?: any
