@@ -1,5 +1,5 @@
 import { eq } from './shared'
-import { set, wait, clear } from '../src'
+import { set, get, wait, clear } from '../src'
 
 describe('test set', () => {
 
@@ -80,10 +80,9 @@ describe('test set', () => {
 
     let obj = {}
 
-    wait('foo', 'bar').then(map => {
-      eq(map.get('foo'), obj)
-      eq(map.get('bar'), 123)
-      eq(map.size, 2)
+    wait('foo', 'bar').then(() => {
+      eq(get('foo'), obj)
+      eq(get('bar'), 123)
       
       done()
     })
@@ -95,8 +94,8 @@ describe('test set', () => {
 
   it('several same signs payload set in sync should trigger the last one', done => {
 
-    wait('foo').then(map => {
-      eq(map.get('foo'), 'bar')
+    wait('foo').then(() => {
+      eq(get('foo'), 'bar')
       done()
     })
 
@@ -107,8 +106,8 @@ describe('test set', () => {
 
   it('several same signs payload set in async(setTimeout) should trigger the first one', done => {
 
-    wait('foo').then(map => {
-      eq(map.get('foo'), 'foo')
+    wait('foo').then(() => {
+      eq(get('foo'), 'foo')
       done()
     })
 
@@ -124,8 +123,8 @@ describe('test set', () => {
 
   it('several same signs payload set in async(Promise) should trigger the first one', done => {
 
-    wait('foo').then(map => {
-      eq(map.get('foo'), 'foo')
+    wait('foo').then(() => {
+      eq(get('foo'), 'foo')
       done()
     })
 

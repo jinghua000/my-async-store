@@ -18,7 +18,7 @@ const defaultStore = namespace(
  * @example
  * 
  * wait('foo').then(
- *   map => console.log(`${map.get('foo')} is ready`)
+ *   () => console.log(`${get('foo')} is ready`)
  * )
  * 
  * setTimeout() => set('foo', 'bar'), 30)
@@ -92,6 +92,10 @@ export const del = defaultStore.del
  */
 export const has = defaultStore.has
 
+export const keys = defaultStore.keys
+export const values = defaultStore.values
+export const all = defaultStore.all
+
 /**
  * Clear all signs from store.
  * 
@@ -120,27 +124,5 @@ export const clear = defaultStore.clear
  * size() // => 0
  */
 export const size = defaultStore.size
-
-/**
- * The property point to the raw `Map` of the store.
- * 
- * When set signs to the store, first parameter as the Map key,
- * second parameter as the Map value.
- * 
- * And it's only used to read,
- * **DO NOT** edit this object directly.
- * 
- * @type {Map}
- * @example
- * 
- * set('foo', 123)
- * set('bar', 234)
- * 
- * storeMap.get('foo') // => 123
- * storeMap.get('bar') // => 123
- * [...storeMap.keys()] // => ['foo', 'bar']
- * [...storeMap.values()] // => [123, 234]
- */
-export const storeMap = defaultStore.storeMap
 
 export { namespace }

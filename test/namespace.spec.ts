@@ -35,8 +35,10 @@ describe('test namespace', () => {
     eq('clear' in mySpace, true)
     eq('del' in mySpace, true)
     eq('has' in mySpace, true)
+    eq('keys' in mySpace, true)
+    eq('values' in mySpace, true)
+    eq('all' in mySpace, true)
     eq('size' in mySpace, true)
-    eq('storeMap' in mySpace, true)
     eq('wait' in mySpace, true)
 
   })

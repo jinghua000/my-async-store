@@ -1,6 +1,6 @@
 {
   "name": "my-async-store",
-  "version": "0.1.0",
+  "version": "0.2.0-beta.0",
   "description": "Track asynchronous more simplify.",
   "main": "dist/my-async-store.cjs.js",
   "module": "dist/my-async-store.esm.js",

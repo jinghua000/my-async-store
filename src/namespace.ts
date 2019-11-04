@@ -1,6 +1,6 @@
 import { AsyncStore, createAsyncStore } from './core'
 
-const globalStoreMap: Map<any, AsyncStore> = new Map()
+const globalStoreMap: Map<any, AsyncStore<any, any>> = new Map()
 
 /**
  * Return the async store with the supplied namespace.
@@ -23,7 +23,7 @@ const globalStoreMap: Map<any, AsyncStore> = new Map()
  * wait('foo').then(() => console.log('works')) // logs: works
  * namespace('my-space').namespace // => my-space
  */
-export function namespace (namespace: any): AsyncStore {
+export function namespace (namespace: any): AsyncStore<any, any> {
   if (globalStoreMap.has(namespace)) {
     return globalStoreMap.get(namespace)
   } 

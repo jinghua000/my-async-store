@@ -1,28 +1,29 @@
-import { removeFrom, call } from './shared'
+import { call } from './shared'
 
 type StoreMap = Map<any, any>
 
-export interface AsyncStore {
-  set: (sign: any, payload?: any) => void
-  wait: (...signs: any) => Promise<StoreMap>
-  get: (sign: any) => any
-  has: (sign: any) => Boolean
-  del: (sign: any) => Boolean
+export interface AsyncStore<K, V>{
+  set: (sign: K, payload?: V) => void
+  wait: (...signs: K[]) => Promise<void>
+  get: (sign: K) => V
+  has: (sign: K) => Boolean
+  del: (sign: K) => Boolean
+  keys: () => K[]
+  values: () => V[]
+  all: () => Array<Array<K|V>>
   clear: () => void
   size: () => number
-  readonly storeMap: StoreMap
   namespace?: any
 }
 
-export function createAsyncStore (): AsyncStore {
+export function createAsyncStore (): AsyncStore<any, any> {
 
   const storeMap: StoreMap = new Map()
-  const deps: Function[] = []
-  const remove = removeFrom(deps)
+  const deps: Set<Function> = new Set()
   const isCompleted = (signs: any[]): Boolean => 
     signs.map(storeMap.has.bind(storeMap)).every(Boolean)
 
-  function wait (...signs: any): Promise<StoreMap> {
+  function wait (...signs: any): Promise<void> {
     return new Promise(resolve => {
 
       let isCalled = false
@@ -32,25 +33,26 @@ export function createAsyncStore (): AsyncStore {
         if (isCalled) { throw new Error('Called More Than One Times!') } 
         
         isCalled = true
-        remove(run)
-        resolve(storeMap)
+        deps.delete(run)
+        resolve()
       }
 
       run()
 
-      // if `run` not completely called, push to the `deps`
-      isCalled || deps.push(run)
+      // if `run` not completely called, add to the `deps`
+      isCalled || deps.add(run)
     })
   }
 
   return {
     wait,
-    storeMap,
-    // here needs shallow copy since that function in deps are using splice.
-    set: (sign, payload) => storeMap.set(sign, payload) && [].concat(deps).forEach(call),
+    set: (sign, payload) => storeMap.set(sign, payload) && deps.forEach(call),
     get: sign => storeMap.get(sign),
     del: sign => storeMap.delete(sign),
     has: sign => storeMap.has(sign),
+    keys: () => Array.from(storeMap.keys()),
+    values: () => Array.from(storeMap.values()),
+    all: () => Array.from(storeMap),
     clear: () => storeMap.clear(),
     size: () => storeMap.size,
   }
