@@ -30,6 +30,7 @@ export function createAsyncStore (): AsyncStore<any, any> {
 
       const run = (): void => {
         if (!isCompleted(signs)) { return }
+        /* istanbul ignore next */
         if (isCalled) { throw new Error('Called More Than One Times!') } 
         
         isCalled = true

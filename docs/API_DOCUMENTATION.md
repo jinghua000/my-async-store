@@ -136,7 +136,7 @@ set('foo')size() // => 1set('bar')size() // => 2clear()size() // => 0
 <a name="namespace"></a>
 
 ## namespace ⇒ <code>AsyncStore</code>
-Return the async store with the supplied namespace.The result object has all other exports methods,and have the extra property `namespace`, means the namespace's name.Store with Different namespace will not make influence to each other.API declare detail check [AsyncStore](../types/core.d.ts)
+Return the async store with the supplied namespace.The result object has all other exports methods,and have the extra property `namespace`, means the namespace's name.Store with different namespace will not make influence to each other.API declare detail check [AsyncStore](../types/core.d.ts)
 
 
 | Param | Type |

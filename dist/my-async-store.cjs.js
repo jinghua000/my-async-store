@@ -21,6 +21,7 @@ function createAsyncStore() {
                 if (!isCompleted(signs)) {
                     return;
                 }
+                /* istanbul ignore next */
                 if (isCalled) {
                     throw new Error('Called More Than One Times!');
                 }
@@ -54,7 +55,7 @@ var globalStoreMap = new Map();
  * The result object has all other exports methods,
  * and have the extra property `namespace`, means the namespace's name.
  *
- * Store with Different namespace will not make influence to each other.
+ * Store with different namespace will not make influence to each other.
  *
  * API declare detail check [AsyncStore](../types/core.d.ts)
  *
