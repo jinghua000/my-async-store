@@ -57,7 +57,7 @@ export const get = defaultStore.get
  * set('bar')
  * 
  * wait('foo', 'bar').then(
- *   () => console.log('foo, bar is ready') // => logs succeed.
+ *   () => console.log('foo, bar is ready') // => logs succeeded.
  * )
  */
 export const wait = defaultStore.wait

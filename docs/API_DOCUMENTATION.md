@@ -2,7 +2,7 @@
 
 All methods bellow export from the package.  
 
-And internal implementation based on [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), so they are similar to the API of `Map.prototype` 
+And internal implementation based on [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), so they are similar to the API of `Map.prototype`. 
 
 - [set](#set)  
 - [get](#get)  
@@ -58,7 +58,7 @@ Check the supplied signs are all been set,when succeed, return a `Promise`, res
 
 **Example**  
 ```js
-set('foo')set('bar')wait('foo', 'bar').then(  () => console.log('foo, bar is ready') // => logs succeed.)
+set('foo')set('bar')wait('foo', 'bar').then(  () => console.log('foo, bar is ready') // => logs succeeded.)
 ```
 <a name="del"></a>
 

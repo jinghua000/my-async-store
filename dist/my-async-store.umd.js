@@ -134,7 +134,7 @@
    * set('bar')
    *
    * wait('foo', 'bar').then(
-   *   () => console.log('foo, bar is ready') // => logs succeed.
+   *   () => console.log('foo, bar is ready') // => logs succeeded.
    * )
    */
   var wait = defaultStore.wait;

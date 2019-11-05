@@ -50,7 +50,7 @@ export declare const get: (sign: any) => any;
  * set('bar')
  *
  * wait('foo', 'bar').then(
- *   () => console.log('foo, bar is ready') // => logs succeed.
+ *   () => console.log('foo, bar is ready') // => logs succeeded.
  * )
  */
 export declare const wait: (...signs: any[]) => Promise<void>;

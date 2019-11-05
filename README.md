@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jinghua000/my-async-store.svg?branch=master)](https://travis-ci.org/jinghua000/my-async-store)
 [![npm module](https://badge.fury.io/js/my-async-store.svg)](https://www.npmjs.com/package/my-async-store)
+[![Coverage Status](https://coveralls.io/repos/github/jinghua000/my-async-store/badge.svg?branch=master)](https://coveralls.io/github/jinghua000/my-async-store?branch=master)
 [![Dependency Status](https://david-dm.org/jinghua000/my-async-store.svg)](https://david-dm.org/jinghua000/my-async-store)
 
 ## Introduction

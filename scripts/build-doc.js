@@ -55,7 +55,7 @@ function enrich (doc) {
   return [
     `# API documentation  \n\n`,
     `All methods bellow export from the package.  \n\n`,
-    `And internal implementation based on [\`Map\`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), so they are similar to the API of \`Map.prototype\` \n\n`,
+    `And internal implementation based on [\`Map\`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), so they are similar to the API of \`Map.prototype\`. \n\n`,
     makeNav(),
     doc
   ].join('')
