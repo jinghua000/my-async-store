@@ -5,11 +5,11 @@ import { AsyncStore } from './core';
  * The result object has all other exports methods,
  * and have the extra property `namespace`, means the namespace's name.
  *
- * Different namespace store will not make influence to each other.
+ * Store with different namespace will not make influence to each other.
  *
  * API declare detail check [AsyncStore](../types/core.d.ts)
  *
- * @param {any} namespace
+ * @param {*} namespace
  * @return {AsyncStore}
  * @example
  *
@@ -20,4 +20,4 @@ import { AsyncStore } from './core';
  * wait('foo').then(() => console.log('works')) // logs: works
  * namespace('my-space').namespace // => my-space
  */
-export declare function namespace(namespace: any): AsyncStore;
+export declare function namespace(namespace: any): AsyncStore<any, any>;

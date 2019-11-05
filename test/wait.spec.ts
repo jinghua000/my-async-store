@@ -1,5 +1,5 @@
 import { eq, equals } from './shared'
-import { set, wait, clear, storeMap } from '../src'
+import { set, wait, clear } from '../src'
 
 describe('test wait', () => {
 
@@ -15,17 +15,6 @@ describe('test wait', () => {
       eq(num, 1)
       done()
     }, 10)
-
-  })
-
-  it('wait will resolve storeMap', done => {
-
-    wait('foo').then(map => {
-      eq(map, storeMap)
-      done()
-    })
-
-    set('foo')
 
   })
 

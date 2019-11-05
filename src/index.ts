@@ -18,7 +18,7 @@ const defaultStore = namespace(
  * @example
  * 
  * wait('foo').then(
- *   map => console.log(`${map.get('foo')} is ready`)
+ *   () => console.log(`${get('foo')} is ready`)
  * )
  * 
  * setTimeout() => set('foo', 'bar'), 30)
@@ -45,21 +45,19 @@ export const get = defaultStore.get
 
 /**
  * Check the supplied signs are all been set,
- * when succeed, return a `Promise`,
- * it will resolve the [storeMap](#storeMap)
- * where can get the message you have ever set.
+ * when succeed, return a `Promise`, resolve `undefined`.
  * 
  * And first set signs, then call this method will also work. 
  * 
  * @param {...*} signs
- * @returns {Promise<Map>}
+ * @returns {Promise<void>}
  * @example
  * 
  * set('foo')
  * set('bar')
  * 
  * wait('foo', 'bar').then(
- *   map => map === storeMap // => true
+ *   () => console.log('foo, bar is ready') // => logs succeeded.
  * )
  */
 export const wait = defaultStore.wait
@@ -93,6 +91,42 @@ export const del = defaultStore.del
 export const has = defaultStore.has
 
 /**
+ * Return all keys of the store.
+ * 
+ * @returns {array}
+ * @example 
+ * 
+ * set('foo')
+ * set('bar')
+ * keys() // => ['foo', 'bar']
+ */
+export const keys = defaultStore.keys
+
+/**
+ * Return all values of the store. 
+ * 
+ * @returns {array}
+ * @example
+ * 
+ * set('foo')
+ * set('bar', 123)
+ * values() // => [undefined, 'foo']
+ */
+export const values = defaultStore.values
+
+/**
+ * Return all keys and values of the store.
+ * 
+ * @returns {array}
+ * @example
+ * 
+ * set('foo')
+ * set('bar', 123)
+ * all() // => [['foo', undefined], ['bar', 123]]
+ */
+export const all = defaultStore.all
+
+/**
  * Clear all signs from store.
  * 
  * @returns {void}
@@ -120,27 +154,5 @@ export const clear = defaultStore.clear
  * size() // => 0
  */
 export const size = defaultStore.size
-
-/**
- * The property point to the raw `Map` of the store.
- * 
- * When set signs to the store, first parameter as the Map key,
- * second parameter as the Map value.
- * 
- * And it's only used to read,
- * **DO NOT** edit this object directly.
- * 
- * @type {Map}
- * @example
- * 
- * set('foo', 123)
- * set('bar', 234)
- * 
- * storeMap.get('foo') // => 123
- * storeMap.get('bar') // => 123
- * [...storeMap.keys()] // => ['foo', 'bar']
- * [...storeMap.values()] // => [123, 234]
- */
-export const storeMap = defaultStore.storeMap
 
 export { namespace }
