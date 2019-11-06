@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.1.0 ~ v0.2.0 (TODO)
+## v0.1.0 ~ v0.2.0 (20191106)
 
 *Breaking Change*
 
