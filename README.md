@@ -87,4 +87,6 @@ That's all!
 
 ## Documentation
 
-Further usage see [API documentation](https://github.com/jinghua000/my-async-store/blob/master/docs/API_DOCUMENTATION.md)
+Further usage see [API documentation](https://github.com/jinghua000/my-async-store/blob/master/docs/API_DOCUMENTATION.md).
+
+Changelog see [Changelog](https://github.com/jinghua000/my-async-store/blob/master/CHANGELOG.md).
