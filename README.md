@@ -90,3 +90,5 @@ That's all!
 Further usage see [API documentation](https://github.com/jinghua000/my-async-store/blob/master/docs/API_DOCUMENTATION.md).
 
 Changelog see [Changelog](https://github.com/jinghua000/my-async-store/blob/master/CHANGELOG.md).
+
+And here is the recap of [Internal Implementation](https://github.com/jinghua000/my-async-store/blob/master/docs/INTERNAL.md).

@@ -2,7 +2,7 @@ import { call } from './shared'
 
 type StoreMap = Map<any, any>
 
-export interface AsyncStore<K, V>{
+export interface AsyncStore<K, V> {
   set: (sign: K, payload?: V) => void
   wait: (...signs: K[]) => Promise<void>
   get: (sign: K) => V
