@@ -110,7 +110,7 @@ export const keys = defaultStore.keys
  * 
  * set('foo')
  * set('bar', 123)
- * values() // => [undefined, 'foo']
+ * values() // => [undefined, 123]
  */
 export const values = defaultStore.values
 

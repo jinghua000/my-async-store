@@ -183,7 +183,7 @@
    *
    * set('foo')
    * set('bar', 123)
-   * values() // => [undefined, 'foo']
+   * values() // => [undefined, 123]
    */
   var values = defaultStore.values;
   /**

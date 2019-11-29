@@ -99,7 +99,7 @@ export declare const keys: () => any[];
  *
  * set('foo')
  * set('bar', 123)
- * values() // => [undefined, 'foo']
+ * values() // => [undefined, 123]
  */
 export declare const values: () => any[];
 /**

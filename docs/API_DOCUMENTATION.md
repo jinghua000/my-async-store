@@ -104,7 +104,7 @@ Return all values of the store.
 
 **Example**  
 ```js
-set('foo')set('bar', 123)values() // => [undefined, 'foo']
+set('foo')set('bar', 123)values() // => [undefined, 123]
 ```
 <a name="all"></a>
 
