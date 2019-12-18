@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.2.1 (20191218)
+
+### Add
+
+`clearDeps`
+
 ## v0.1.0 ~ v0.2.0 (20191106)
 
 *Breaking Change*
