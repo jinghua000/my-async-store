@@ -9,6 +9,7 @@ export interface AsyncStore<K, V> {
     all: () => Array<Array<K | V>>;
     clear: () => void;
     size: () => number;
+    clearDeps: () => void;
     namespace?: any;
 }
 export declare function createAsyncStore(): AsyncStore<any, any>;

@@ -13,6 +13,7 @@ export interface AsyncStore<K, V> {
   all: () => Array<Array<K | V>>
   clear: () => void
   size: () => number
+  clearDeps: () => void
   namespace?: any
 }
 
@@ -56,5 +57,6 @@ export function createAsyncStore (): AsyncStore<any, any> {
     all: () => Array.from(storeMap),
     clear: () => storeMap.clear(),
     size: () => storeMap.size,
+    clearDeps: () => deps.clear()
   }
 }

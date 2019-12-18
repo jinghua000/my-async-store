@@ -14,6 +14,7 @@ And internal implementation based on [`Map`](https://developer.mozilla.org/en-US
 - [all](#all)  
 - [clear](#clear)  
 - [size](#size)  
+- [clearDeps](#clearDeps)  
 - [namespace](#namespace)  
   
 
@@ -44,7 +45,7 @@ Read the supplied sign corresponding payload,if not exist or not been set retur
 
 **Example**  
 ```js
-let obj = {}set('foo', obj)get('foo') === obj // => trueget('bar') // => undefined
+const obj = {}set('foo', obj)get('foo') === obj // => trueget('bar') // => undefined
 ```
 <a name="wait"></a>
 
@@ -132,6 +133,15 @@ Return the number of signs.
 **Example**  
 ```js
 set('foo')size() // => 1set('bar')size() // => 2clear()size() // => 0
+```
+<a name="clearDeps"></a>
+
+## clearDeps ⇒ <code>void</code>
+When several `wait` invoked, there will be many dependents inside the object.This method is used in order to clean them all.
+
+**Example**  
+```js
+const arr = []wait('foo').then(() => arr.push(1))wait('foo').then(() => arr.push(2))wait('foo').then(() => arr.push(3))clearDeps()wait('foo').then(() => arr.push(4))wait('foo').then(() => arr.push(5))set('foo')console.log(arr) // => logs: [4, 5]
 ```
 <a name="namespace"></a>
 

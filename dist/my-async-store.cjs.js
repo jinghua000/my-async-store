@@ -45,6 +45,7 @@ function createAsyncStore() {
         all: function () { return Array.from(storeMap); },
         clear: function () { return storeMap.clear(); },
         size: function () { return storeMap.size; },
+        clearDeps: function () { return deps.clear(); }
     };
 }
 
@@ -111,7 +112,7 @@ var set = defaultStore.set;
  * @returns {*}
  * @example
  *
- * let obj = {}
+ * const obj = {}
  *
  * set('foo', obj)
  * get('foo') === obj // => true
@@ -222,9 +223,34 @@ var clear = defaultStore.clear;
  * size() // => 0
  */
 var size = defaultStore.size;
+/**
+ * When several `wait` invoked, there will be many dependents inside the object.
+ *
+ * This method is used in order to clean them all.
+ *
+ * @returns {void}
+ * @example
+ *
+ * const arr = []
+ *
+ * wait('foo').then(() => arr.push(1))
+ * wait('foo').then(() => arr.push(2))
+ * wait('foo').then(() => arr.push(3))
+ *
+ * clearDeps()
+ *
+ * wait('foo').then(() => arr.push(4))
+ * wait('foo').then(() => arr.push(5))
+ *
+ * set('foo')
+ *
+ * console.log(arr) // => logs: [4, 5]
+ */
+var clearDeps = defaultStore.clearDeps;
 
 exports.all = all;
 exports.clear = clear;
+exports.clearDeps = clearDeps;
 exports.del = del;
 exports.get = get;
 exports.has = has;
