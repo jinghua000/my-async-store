@@ -29,7 +29,7 @@ export declare const set: (sign: any, payload?: any) => void;
  * @returns {*}
  * @example
  *
- * let obj = {}
+ * const obj = {}
  *
  * set('foo', obj)
  * get('foo') === obj // => true
@@ -140,4 +140,28 @@ export declare const clear: () => void;
  * size() // => 0
  */
 export declare const size: () => number;
+/**
+ * When several `wait` invoked, there will be many dependents inside the object.
+ *
+ * This method is used in order to clean them all.
+ *
+ * @returns {void}
+ * @example
+ *
+ * const arr = []
+ *
+ * wait('foo').then(() => arr.push(1))
+ * wait('foo').then(() => arr.push(2))
+ * wait('foo').then(() => arr.push(3))
+ *
+ * clearDeps()
+ *
+ * wait('foo').then(() => arr.push(4))
+ * wait('foo').then(() => arr.push(5))
+ *
+ * set('foo')
+ *
+ * console.log(arr) // => logs: [4, 5]
+ */
+export declare const clearDeps: () => void;
 export { namespace };
