@@ -93,14 +93,17 @@ describe('test set', () => {
   })
 
   it('several same signs payload set in sync should trigger the last one', done => {
+    // That's because `wait` resolve a `promise`, it's a micro task, 
+    // will called after synchronous tasks.
 
     wait('foo').then(() => {
-      eq(get('foo'), 'bar')
+      eq(get('foo'), 'baz')
       done()
     })
 
     set('foo', 'foo')
     set('foo', 'bar')
+    set('foo', 'baz')
     
   })
 
