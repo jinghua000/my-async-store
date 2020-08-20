@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.2 (20200828)
+
+Improve some internal algorithm.
+
 ## v0.2.1 (20191218)
 
 ### Add
