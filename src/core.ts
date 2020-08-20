@@ -21,8 +21,14 @@ export function createAsyncStore (): AsyncStore<any, any> {
 
   const storeMap: StoreMap = new Map()
   const deps: Set<Function> = new Set()
-  const isCompleted = (signs: any[]): Boolean => 
-    signs.map(storeMap.has.bind(storeMap)).every(Boolean)
+  const isCompleted = (signs: any[]): Boolean => {
+    for (let i = 0; i < signs.length; i++) {
+      if (!storeMap.has(signs[i])) {
+        return false
+      }
+    }
+    return true
+  }
 
   function wait (...signs: any): Promise<void> {
     return new Promise(resolve => {
