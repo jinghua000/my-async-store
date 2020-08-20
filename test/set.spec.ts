@@ -138,5 +138,16 @@ describe('test set', () => {
 
   })
 
+  it('set some strange signs will still work', done => {
+    wait(null, false, NaN, undefined, '').then(() => {
+      done()
+    })
+
+    set(null)
+    set(false)
+    set(undefined)
+    set(NaN)
+    set('')
+  })
 
 })

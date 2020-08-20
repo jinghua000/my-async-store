@@ -8,7 +8,12 @@ function createAsyncStore() {
     var storeMap = new Map();
     var deps = new Set();
     var isCompleted = function (signs) {
-        return signs.map(storeMap.has.bind(storeMap)).every(Boolean);
+        for (var i = 0; i < signs.length; i++) {
+            if (!storeMap.has(signs[i])) {
+                return false;
+            }
+        }
+        return true;
     };
     function wait() {
         var signs = [];
